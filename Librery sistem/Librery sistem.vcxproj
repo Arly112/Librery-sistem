@@ -125,6 +125,11 @@
   <ItemGroup>
     <ClCompile Include="Second_PR.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Book.h" />
+    <ClInclude Include="Librery.h" />
+    <ClInclude Include="Reader.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
