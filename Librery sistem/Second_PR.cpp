@@ -1,4 +1,6 @@
 #include <iostream>
+#include <windows.h>
+#include"Librery.h"
 
 void Librery_menu()
 {
@@ -19,4 +21,30 @@ void Librery_menu()
 	std::cout << "13. Загрузить данные" << std::endl;
 	std::cout << "0. Выход" << std::endl;
 	std::cout << std::endl;
+}
+
+int main()
+{
+	std::setlocale(LC_ALL, "ru");
+	Librery l;
+	int choice;
+	choice = -1;
+	while (choice != 0)
+	{
+		Librery_menu();
+		std::cin >> choice;
+		switch (choice)
+		{
+		case 1:
+			l.cout_all_book();
+			break;
+		case 2: l.new_book();
+			break;
+		case 3: l.delete_book();
+			break;
+		default:
+			break;
+		}
+
+	}
 }

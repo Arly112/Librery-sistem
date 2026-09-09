@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Librery.cpp" />
     <ClCompile Include="Second_PR.cpp" />
   </ItemGroup>
   <ItemGroup>
