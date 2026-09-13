@@ -66,3 +66,93 @@ void Librery::delete_book()
 		}
 	}
 }
+
+void Librery::find_book()
+{
+	int vab;
+	
+	std::cout << "You wanted find by 1.Name or by 2.ID"<<std::endl;
+	std::cin >> vab;
+	if (vab == 1)
+	{
+		std::string Name;
+		std::cin.ignore(1000, '\n');
+		std::cout << "Write finded book:" << std::endl;
+		std::getline(std::cin, Name);
+		for (int i = 0; i < book.size(); i++)
+		{
+			if (book[i].Name == Name)
+			{
+				std::cout << std::endl;
+				std::cout << "ID: " << book[i].ID << std::endl;
+				std::cout << "Name: " << book[i].Name << std::endl;
+				std::cout << "Author: " << book[i].Author << std::endl;
+				std::cout << "Year publish: " << book[i].Year_publish << std::endl;
+				
+				if (book[i].open)
+				{
+					std::cout << "Availability: Available ";
+				}
+
+				else if (!book[i].open)
+				{
+					std::cout << "Availability: Not Available ";
+				}
+				std::cout << std::endl;
+			}
+		}
+	}
+	else if (vab == 2)
+	{
+		int ID;
+		std::cin.ignore(1000, '\n');
+		std::cout << "Write finded book:" << std::endl;
+		std::cin >> ID;
+		for (int i = 0; i < book.size(); i++)
+		{
+			if (book[i].ID == ID)
+			{
+				std::cout << std::endl;
+				std::cout << "ID: " << book[i].ID << std::endl;
+				std::cout << "Name: " << book[i].Name << std::endl;
+				std::cout << "Author: " << book[i].Author << std::endl;
+				std::cout << "Year publish: " << book[i].Year_publish << std::endl;
+
+				if (book[i].open)
+				{
+					std::cout << "Availability: Available ";
+				}
+
+				else if (!book[i].open)
+				{
+					std::cout << "Availability: Not Available ";
+				}
+				std::cout << std::endl;
+			}
+		}
+	}
+}
+
+void Librery::cout_all_reader()
+{
+	for (auto r : reader)
+	{
+		std::cout<<std::endl;
+		std::cout << r.ID << std::endl;
+		std::cout << r.Name << std::endl;
+		std::cout << r.Surname << std::endl;
+		std::cout << r.Count_reading_book << std::endl;
+		std::cout<<std::endl;
+
+
+		if (reader.size() == 0)
+		{
+			std::cout<<"Librery haven't readers!!" << std::endl;
+		}
+	}
+}
+
+void Librery::new_reader()
+{
+	 
+}

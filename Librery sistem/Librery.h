@@ -12,9 +12,9 @@ public:
 	void cout_all_book();
 	void new_book();
 	void delete_book();
-	//void find_book();
-	//void cout_all_reader();
-	//void new_reader();
+	void find_book();
+	void cout_all_reader();
+	void new_reader();
 	//void delete_reader();
 	//void find_reader();
 	//void give_book();

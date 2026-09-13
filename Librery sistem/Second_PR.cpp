@@ -42,6 +42,8 @@ int main()
 			break;
 		case 3: l.delete_book();
 			break;
+		case 4: l.find_book();
+			break;
 		default:
 			break;
 		}
