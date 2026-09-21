@@ -138,10 +138,10 @@ void Librery::cout_all_reader()
 	for (auto r : reader)
 	{
 		std::cout<<std::endl;
-		std::cout << r.ID << std::endl;
-		std::cout << r.Name << std::endl;
-		std::cout << r.Surname << std::endl;
-		std::cout << r.Count_reading_book << std::endl;
+		std::cout << "ID: " << r.ID << std::endl;
+		std::cout << "Name: " << r.Name << std::endl;
+		std::cout << "Surname: " << r.Surname << std::endl;
+		std::cout << "How match this reader take book: " << r.Count_reading_book << std::endl;
 		std::cout<<std::endl;
 
 
@@ -154,5 +154,149 @@ void Librery::cout_all_reader()
 
 void Librery::new_reader()
 {
-	 
+	Reader r;
+	std::cout << std::endl;
+	std::cout<<"Name new Reader: " << std::endl;
+	std::cin.ignore(1000, '\n');
+	std::getline(std::cin, r.Name);
+	std::cout << "Surname new Reader: " << std::endl;
+	std::getline(std::cin, r.Surname);
+	r.ID = next_id_Reader;
+	next_id_Reader++;
+	r.Count_reading_book = 0;
+	reader.push_back(r);
+}
+
+void Librery::delete_reader()
+{
+	int vab;
+	std::cout << std::endl;
+	std::cout << "You wanted delete by 1.Name and Surname , or by 2.ID" << std::endl;
+	std::cin >> vab;
+	if (vab == 1)
+	{
+		std::string Name,Surname;
+		std::cin.ignore(1000, '\n');
+		std::cout << "Write Name and Surname deleted reader:" << std::endl;
+		std::getline(std::cin, Name);
+		std::getline(std::cin, Surname);
+		for (int i = 0; i < reader.size(); i++)
+		{
+			if (reader[i].Name == Name && reader[i].Surname== Surname&&reader[i].Count_reading_book==0)
+			{
+				reader.erase(reader.begin() + i);
+			}
+			else
+			{
+				std::cout << std::endl;
+				std::cout << "Librery not have this reader in BaseData or this reader have not returned books" << std::endl;
+			}
+		}
+	}
+	else if (vab == 2)
+	{
+		int ID;
+		std::cin.ignore(1000, '\n');
+		std::cout << "Write ID deleted reader:" << std::endl;
+		std::cin >> ID;
+		for (int i = 0; i < reader.size(); i++)
+		{
+			if (reader[i].ID == ID&&reader[i].Count_reading_book==0)
+			{
+				reader.erase(reader.begin() + i);
+			}
+			else
+			{
+				std::cout << std::endl;
+				std::cout << "Librery not have this reader in BaseData or this reader have not returned books" << std::endl;
+			}
+		}
+	}
+}
+
+void Librery::find_reader()
+{
+	int vab;
+
+	std::cout << "You wanted find by 1.Name and Surname or by 2.ID" << std::endl;
+	std::cin >> vab;
+	if (vab == 1)
+	{
+		std::string Name, Surname;
+		std::cin.ignore(1000, '\n');
+		std::cout << "Write Name and Surname find reader:" << std::endl;
+		std::getline(std::cin, Name);
+		std::getline(std::cin, Surname);
+		for (int i = 0; i < reader.size(); i++)
+		{
+			if (reader[i].Name == Name && reader[i].Surname == Surname)
+			{
+				std::cout << std::endl;
+				std::cout << "ID: " << reader[i].ID << std::endl;
+				std::cout << "Name: " << reader[i].Name << std::endl;
+				std::cout << "Surname: " << reader[i].Surname << std::endl;
+				std::cout << "How match this reader take book: " << reader[i].Count_reading_book << std::endl;
+				std::cout << std::endl;
+			}
+			else
+			{
+				std::cout << std::endl;
+				std::cout << "Librery not have this reader in BaseData" << std::endl;
+			}
+		}
+	}
+	else if (vab == 2)
+	{
+		int ID;
+		std::cin.ignore(1000, '\n');
+		std::cout << "Write finded reader:" << std::endl;
+		std::cin >> ID;
+		for (int i = 0; i < reader.size(); i++)
+		{
+			if (reader[i].ID)
+			{
+				std::cout << std::endl;
+				std::cout << "ID: " << reader[i].ID << std::endl;
+				std::cout << "Name: " << reader[i].Name << std::endl;
+				std::cout << "Surname: " << reader[i].Surname << std::endl;
+				std::cout << "How match this reader take book: " << reader[i].Count_reading_book << std::endl;
+				std::cout << std::endl;
+			}
+			else
+			{
+				std::cout << std::endl;
+				std::cout << "Librery not have this reader in BaseData" << std::endl;
+			}
+			
+		}
+	}
+}
+
+void Librery::give_book()
+{
+	int ID_b, ID_r;
+
+	std::cout << "Write ID issued book: " << std::endl;
+	std::cin >> ID_b;
+	std::cout << "Write ID of the book recipient: " << std::endl;
+	std::cin >> ID_r;
+
+	for (int i=0;i<book.size();i++)
+	{
+		if (ID_b==book[i].ID)
+		{
+			book[i].open == false;
+			book[i].ID_Reader == ID_r;
+		}
+	}
+	for (int i = 0; i < reader.size(); i++)
+	{
+		if (ID_r == reader[i].ID)
+		{
+			reader[i].Count_reading_book++;
+			return;
+		}
+		
+	}
+
 }

@@ -44,6 +44,16 @@ int main()
 			break;
 		case 4: l.find_book();
 			break;
+		case 5: l.cout_all_reader();
+			break;
+		case 6: l.new_reader();
+			break;
+		case 7: l.delete_reader();
+			break;
+		case 8: l.find_reader();
+			break;
+		case 9: l.give_book();
+			break;
 		default:
 			break;
 		}

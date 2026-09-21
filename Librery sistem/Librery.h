@@ -15,11 +15,10 @@ public:
 	void find_book();
 	void cout_all_reader();
 	void new_reader();
-	//void delete_reader();
-	//void find_reader();
-	//void give_book();
+	void delete_reader();
+	void find_reader();
+	void give_book();
 	//void get_book();
-	//void cout_all_book();
 	//void cout_all_issued_book();
 	//void save_data();
 	//void load_data();
