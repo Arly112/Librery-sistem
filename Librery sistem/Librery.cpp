@@ -274,29 +274,53 @@ void Librery::find_reader()
 
 void Librery::give_book()
 {
-	int ID_b, ID_r;
+	int ID_b, ID_r,book_i,reader_i;
 
 	std::cout << "Write ID issued book: " << std::endl;
 	std::cin >> ID_b;
 	std::cout << "Write ID of the book recipient: " << std::endl;
 	std::cin >> ID_r;
-
+	book_i = -1;
+	reader_i = -1;
 	for (int i=0;i<book.size();i++)
 	{
-		if (ID_b==book[i].ID)
+		if (ID_b==book[i].ID&&book[i].open==true)
 		{
-			book[i].open == false;
-			book[i].ID_Reader == ID_r;
+			book_i = i;
+			break;
 		}
 	}
 	for (int i = 0; i < reader.size(); i++)
 	{
-		if (ID_r == reader[i].ID)
+		if (ID_r == reader[i].ID&&reader[i].Count_reading_book<3)
 		{
-			reader[i].Count_reading_book++;
-			return;
+			reader_i = i;
+			break;
 		}
-		
 	}
+	if (reader_i != -1 && book_i != -1)
+	{
+		book[book_i].open = false;
+		reader[reader_i].Count_reading_book++;
+	}
+}
 
+void Librery::get_book()
+{
+	int ID_b, ID_r;
+
+	std::cout<< std::endl;
+	std::cout << "Write ID geting book: " << std::endl;
+	std::cin >> ID_b;
+	std::cout<< std::endl;
+	std::cout << "Write ID geting reader: " << std::endl;
+	std::cin >> ID_r;
+	for (int i = 0; i < reader.size(); i++)
+	{
+		if (ID_r == reader[i].ID&&ID_b==book[i].ID&&book[i].open==false)
+		{
+			reader[i].Count_reading_book--;
+			book[i].open = true;
+		}
+	}
 }

@@ -18,8 +18,8 @@ public:
 	void delete_reader();
 	void find_reader();
 	void give_book();
-	//void get_book();
-	//void cout_all_issued_book();
+	void get_book();
+	void cout_all_issued_book();
 	//void save_data();
 	//void load_data();
 };
