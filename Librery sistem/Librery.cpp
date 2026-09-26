@@ -2,7 +2,8 @@
 #include "Reader.h"
 #include "Book.h"
 #include "Librery.h"
-#include "string"
+#include <string>
+#include <fstream>
 
 
 void Librery::cout_all_book()
@@ -50,6 +51,7 @@ void Librery::new_book()
 	b.ID = next_id_Book;
 	next_id_Book++;
 	b.open = true;
+	b.ID_Reader = 0;
 	book.push_back(b);
 }
 
@@ -185,6 +187,7 @@ void Librery::delete_reader()
 			if (reader[i].Name == Name && reader[i].Surname== Surname&&reader[i].Count_reading_book==0)
 			{
 				reader.erase(reader.begin() + i);
+				return;
 			}
 			else
 			{
@@ -253,7 +256,7 @@ void Librery::find_reader()
 		std::cin >> ID;
 		for (int i = 0; i < reader.size(); i++)
 		{
-			if (reader[i].ID)
+			if (reader[i].ID==ID)
 			{
 				std::cout << std::endl;
 				std::cout << "ID: " << reader[i].ID << std::endl;
@@ -301,6 +304,7 @@ void Librery::give_book()
 	if (reader_i != -1 && book_i != -1)
 	{
 		book[book_i].open = false;
+		book[book_i].ID_Reader = reader[reader_i].ID;
 		reader[reader_i].Count_reading_book++;
 	}
 }
@@ -323,4 +327,106 @@ void Librery::get_book()
 			book[i].open = true;
 		}
 	}
+}
+
+void Librery::cout_all_issued_book()
+{
+	for (int i = 0; i < book.size(); i++)
+	{
+		if (!book[i].open)
+		{
+			std::cout << std::endl;
+			std::cout << "ID: " << book[i].ID << std::endl;
+			std::cout << "Name: " << book[i].Name << std::endl;
+			std::cout << "Author: " << book[i].Author << std::endl;
+			std::cout << "Year publish: " << book[i].Year_publish << std::endl;
+			for (int f = 0; f < reader.size(); f++)
+			{
+				if (book[i].ID_Reader == reader[f].ID)
+				{
+					std::cout << "Reader this book" << book[i].ID << std::endl;
+					std::cout << "Name: " << reader[f].Name << std::endl;
+					std::cout << "Surname: " << reader[f].Surname << std::endl;
+					std::cout << "How match this reader take book: " << reader[f].Count_reading_book << std::endl;
+					std::cout << std::endl;
+				}
+			}
+			std::cout << std::endl;
+		}
+	}
+}
+
+void Librery::save_data()
+{
+	std::ofstream save_b;
+	size_t bk;
+	bk = book.size();
+	save_b.open("Save_b.txt");
+	save_b << next_id_Book << std::endl;
+	save_b << bk <<std::endl;
+	for (size_t i = 0; i < bk; i++)
+	{
+
+		save_b << book[i].ID << std::endl
+			<< book[i].Name << std::endl
+			<< book[i].Author << std::endl
+			<< book[i].Year_publish << std::endl
+			<< book[i].open << std::endl
+			<< book[i].ID_Reader << std::endl;
+	}
+	save_b.close();
+
+	std::ofstream save_r;
+	size_t rd;
+	rd = reader.size();
+	save_r.open("Save_r.txt");
+	save_r << next_id_Reader << std::endl;
+	save_r << rd <<std::endl;
+	for (size_t i = 0; i < rd; i++)
+	{
+		save_r << reader[i].ID << std::endl
+			<< reader[i].Name << std::endl
+			<< reader[i].Surname << std::endl
+			<< reader[i].Count_reading_book << std::endl;
+	}
+	save_r.close();
+
+}
+
+void Librery::load_data()
+{
+	book.clear();
+	reader.clear();
+	size_t c=0,c1=0;
+	std::ifstream Load_B;
+	Load_B.open("Save_b.txt");
+	Load_B >> next_id_Book;
+	Load_B >> c;
+	for (size_t i = 0; i < c; i++)
+	{
+		Book b;
+		Load_B >> b.ID;
+		Load_B.ignore(1000, '\n');
+		std::getline(Load_B, b.Name);
+		std::getline(Load_B, b.Author);
+		Load_B >> b.Year_publish >> b.open>>b.ID_Reader;
+		book.push_back(b);
+	}
+	Load_B.close();
+
+	std::ifstream Load_R;
+	Load_R.open("Save_r.txt");
+	Load_R >> next_id_Reader;
+	Load_R >> c1;
+	for (size_t i = 0; i < c1; i++)
+	{
+		Reader r;
+		Load_R >> r.ID;
+		Load_R.ignore(1000, '\n');
+		std::getline(Load_R, r.Name);
+		std::getline(Load_R, r.Surname);
+		Load_R >> r.Count_reading_book;
+		reader.push_back(r);
+	}
+	Load_R.close();
 }

@@ -25,8 +25,9 @@ void Librery_menu()
 
 int main()
 {
-	std::setlocale(LC_ALL, "ru");
 	Librery l;
+	l.load_data();
+	std::setlocale(LC_ALL, "ru");
 	int choice;
 	choice = -1;
 	while (choice != 0)
@@ -37,22 +38,41 @@ int main()
 		{
 		case 1:
 			l.cout_all_book();
+			l.save_data();
 			break;
 		case 2: l.new_book();
+			l.save_data();
 			break;
 		case 3: l.delete_book();
+			l.save_data();
 			break;
 		case 4: l.find_book();
+			l.save_data();
 			break;
 		case 5: l.cout_all_reader();
+			l.save_data();
 			break;
 		case 6: l.new_reader();
+			l.save_data();
 			break;
 		case 7: l.delete_reader();
+			l.save_data();
 			break;
 		case 8: l.find_reader();
+			l.save_data();
 			break;
 		case 9: l.give_book();
+			l.save_data();
+			break;
+		case 10: l.get_book();
+			l.save_data();
+			break;
+		case 11: l.cout_all_issued_book();
+			l.save_data();
+			break;
+		case 12:l.save_data();
+			break;
+		case 13:l.load_data();
 			break;
 		default:
 			break;

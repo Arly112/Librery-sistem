@@ -20,6 +20,6 @@ public:
 	void give_book();
 	void get_book();
 	void cout_all_issued_book();
-	//void save_data();
-	//void load_data();
+	void save_data();
+	void load_data();
 };
