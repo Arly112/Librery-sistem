@@ -8,6 +8,13 @@
 
 void Librery::cout_all_book()
 {
+	if (book.size() == 0)
+	{
+		std::cout << std::endl;
+		std::cout << "Librery haven't books!!";
+		std::cout << std::endl;
+		return;
+	}
 	for (auto w : book)
 	{
 			std::cout<< std::endl;
@@ -28,12 +35,6 @@ void Librery::cout_all_book()
 		std::cout << std::endl;
 	}
 
-	if (book.size() == 0)
-	{
-		std::cout << std::endl;
-		std::cout << "Librery haven't books!!";
-		std::cout << std::endl;
-	}
 }
 
 void Librery::new_book()
@@ -58,28 +59,36 @@ void Librery::new_book()
 void Librery::delete_book()
 {
 	int ID;
+	bool del=false;
 	std::cout << "The ID of the book do you want to delete: ";
 	std::cin >> ID;
 	for (int i = 0; i < book.size(); i++)
 	{
-		if (book[i].ID == ID)
+		if (book[i].ID == ID && book[i].open==true)
 		{
 			book.erase(book.begin() + i);
+			std::cout << "Book in ID " << ID << " delete!";
+			del = true;
+			return;
 		}
+	}
+	if (!del)
+	{
+		std::cout << "Book not delete!!";
+		return;
 	}
 }
 
 void Librery::find_book()
 {
 	int vab;
-	
 	std::cout << "You wanted find by 1.Name or by 2.ID"<<std::endl;
 	std::cin >> vab;
 	if (vab == 1)
 	{
 		std::string Name;
 		std::cin.ignore(1000, '\n');
-		std::cout << "Write finded book:" << std::endl;
+		std::cout << "Write name finded book:" << std::endl;
 		std::getline(std::cin, Name);
 		for (int i = 0; i < book.size(); i++)
 		{
@@ -101,6 +110,7 @@ void Librery::find_book()
 					std::cout << "Availability: Not Available ";
 				}
 				std::cout << std::endl;
+				return;
 			}
 		}
 	}
@@ -108,7 +118,7 @@ void Librery::find_book()
 	{
 		int ID;
 		std::cin.ignore(1000, '\n');
-		std::cout << "Write finded book:" << std::endl;
+		std::cout << "Write ID finded book:" << std::endl;
 		std::cin >> ID;
 		for (int i = 0; i < book.size(); i++)
 		{
@@ -130,6 +140,7 @@ void Librery::find_book()
 					std::cout << "Availability: Not Available ";
 				}
 				std::cout << std::endl;
+				return;
 			}
 		}
 	}
@@ -137,6 +148,11 @@ void Librery::find_book()
 
 void Librery::cout_all_reader()
 {
+	if (reader.size() == 0)
+	{
+		std::cout << "Librery haven't readers!!" << std::endl;
+		return;
+	}
 	for (auto r : reader)
 	{
 		std::cout<<std::endl;
@@ -144,13 +160,7 @@ void Librery::cout_all_reader()
 		std::cout << "Name: " << r.Name << std::endl;
 		std::cout << "Surname: " << r.Surname << std::endl;
 		std::cout << "How match this reader take book: " << r.Count_reading_book << std::endl;
-		std::cout<<std::endl;
-
-
-		if (reader.size() == 0)
-		{
-			std::cout<<"Librery haven't readers!!" << std::endl;
-		}
+		std::cout << std::endl;
 	}
 }
 
@@ -178,6 +188,7 @@ void Librery::delete_reader()
 	if (vab == 1)
 	{
 		std::string Name,Surname;
+		bool delet=false;
 		std::cin.ignore(1000, '\n');
 		std::cout << "Write Name and Surname deleted reader:" << std::endl;
 		std::getline(std::cin, Name);
@@ -187,18 +198,21 @@ void Librery::delete_reader()
 			if (reader[i].Name == Name && reader[i].Surname== Surname&&reader[i].Count_reading_book==0)
 			{
 				reader.erase(reader.begin() + i);
+				delet = true;
 				return;
 			}
-			else
-			{
-				std::cout << std::endl;
-				std::cout << "Librery not have this reader in BaseData or this reader have not returned books" << std::endl;
-			}
+			
+		}
+		if(!delet)
+		{
+			std::cout << std::endl;
+			std::cout << "Librery not have this reader in BaseData or this reader have not returned books" << std::endl;
 		}
 	}
 	else if (vab == 2)
 	{
 		int ID;
+		bool delet = false;
 		std::cin.ignore(1000, '\n');
 		std::cout << "Write ID deleted reader:" << std::endl;
 		std::cin >> ID;
@@ -207,12 +221,15 @@ void Librery::delete_reader()
 			if (reader[i].ID == ID&&reader[i].Count_reading_book==0)
 			{
 				reader.erase(reader.begin() + i);
+				delet = true;
+				return;
 			}
-			else
-			{
-				std::cout << std::endl;
-				std::cout << "Librery not have this reader in BaseData or this reader have not returned books" << std::endl;
-			}
+			
+		}
+		if(!delet)
+		{
+			std::cout << std::endl;
+			std::cout << "Librery not have this reader in BaseData or this reader have not returned books" << std::endl;
 		}
 	}
 }
@@ -226,6 +243,7 @@ void Librery::find_reader()
 	if (vab == 1)
 	{
 		std::string Name, Surname;
+		bool find = false;
 		std::cin.ignore(1000, '\n');
 		std::cout << "Write Name and Surname find reader:" << std::endl;
 		std::getline(std::cin, Name);
@@ -240,17 +258,21 @@ void Librery::find_reader()
 				std::cout << "Surname: " << reader[i].Surname << std::endl;
 				std::cout << "How match this reader take book: " << reader[i].Count_reading_book << std::endl;
 				std::cout << std::endl;
+				find = true;
 			}
-			else
-			{
-				std::cout << std::endl;
-				std::cout << "Librery not have this reader in BaseData" << std::endl;
-			}
+
 		}
+		if (!find)
+		{
+			std::cout << std::endl;
+			std::cout << "Librery not have this reader in BaseData" << std::endl;
+		}
+
 	}
 	else if (vab == 2)
 	{
 		int ID;
+		bool find = false;
 		std::cin.ignore(1000, '\n');
 		std::cout << "Write finded reader:" << std::endl;
 		std::cin >> ID;
@@ -264,13 +286,14 @@ void Librery::find_reader()
 				std::cout << "Surname: " << reader[i].Surname << std::endl;
 				std::cout << "How match this reader take book: " << reader[i].Count_reading_book << std::endl;
 				std::cout << std::endl;
+				find = true;
 			}
-			else
-			{
-				std::cout << std::endl;
-				std::cout << "Librery not have this reader in BaseData" << std::endl;
-			}
-			
+		}
+
+		if (!find)
+		{
+			std::cout << std::endl;
+			std::cout << "Librery not have this reader in BaseData" << std::endl;
 		}
 	}
 }
@@ -312,20 +335,37 @@ void Librery::give_book()
 void Librery::get_book()
 {
 	int ID_b, ID_r;
-
+	bool get=false;
 	std::cout<< std::endl;
 	std::cout << "Write ID geting book: " << std::endl;
 	std::cin >> ID_b;
 	std::cout<< std::endl;
 	std::cout << "Write ID geting reader: " << std::endl;
 	std::cin >> ID_r;
-	for (int i = 0; i < reader.size(); i++)
+	for (int i = 0; i < book.size(); i++)
 	{
-		if (ID_r == reader[i].ID&&ID_b==book[i].ID&&book[i].open==false)
+		if (book[i].ID == ID_b)
 		{
-			reader[i].Count_reading_book--;
-			book[i].open = true;
+			if (ID_r == book[i].ID_Reader && book[i].open == false)
+			{
+				for (int j = 0; j < reader.size(); j++)
+				{
+					if (reader[j].ID == ID_r)
+					{
+						book[i].open = true;
+						reader[j].Count_reading_book--;
+						book[i].ID_Reader = 0;
+						get = true;
+						return;
+					}
+				}
+			}
 		}
+	}
+	if (!get)
+	{
+
+		std::cout << "\nThis book not get\n";
 	}
 }
 
@@ -395,11 +435,20 @@ void Librery::save_data()
 
 void Librery::load_data()
 {
-	book.clear();
-	reader.clear();
+	
 	size_t c=0,c1=0;
 	std::ifstream Load_B;
 	Load_B.open("Save_b.txt");
+	if (Load_B.is_open())
+	{
+		book.clear();
+		reader.clear();
+	}
+	else
+	{
+		std::cout << "Not is load";
+		return;
+	}
 	Load_B >> next_id_Book;
 	Load_B >> c;
 	for (size_t i = 0; i < c; i++)
